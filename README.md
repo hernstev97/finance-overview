@@ -15,6 +15,7 @@ Die vier Ansichten zeigen verfügbare Mittel, anstehende Zahlungen bis zum näch
 - [Lokale Entwicklung](docs/anleitungen/lokale-entwicklung.md)
 - [Architekturüberblick](docs/architektur/ueberblick.md)
 - [Finance Data Schema v1](docs/referenz/finance-data-schema-v1.md)
+- [Datenbank](docs/referenz/datenbank.md), [API](docs/referenz/api.md) und [Konfiguration](docs/referenz/konfiguration.md)
 - [Entwicklungsstand](docs/produkt/entwicklungsstand.md) und [Roadmap](docs/produkt/roadmap.md)
 
 ## Schnellstart ohne externe Dienste
@@ -28,6 +29,10 @@ npm run dev:mock
 
 Der Mock-Modus verwendet ausschließlich anonyme Repository-Daten. Für Google OAuth, PostgreSQL und Vercel Functions gilt die [Produktions-Setup-Anleitung](docs/anleitungen/produktions-setup.md).
 
+Echte Läufe mit `npm run dev` oder `vercel dev` brauchen eine PostgreSQL-Verbindung und eine `.env.local`. Die Schritte stehen in der [Anleitung zur lokalen Entwicklung](docs/anleitungen/lokale-entwicklung.md).
+
+Betreiber bringen Finanzdaten mit `npm run import:finance` nach PostgreSQL. Den Ablauf beschreibt das [Produktions-Setup](docs/anleitungen/produktions-setup.md).
+
 Der Integrationsstand auf `develop` ist unter [accura-preview.kiumu.app](https://accura-preview.kiumu.app/) mit derselben anonymen, bereits angemeldeten Mock-Sitzung verfügbar. Pull Requests zielen standardmäßig auf `develop`; `master` bleibt der bewusst freizugebende Produktionsstand.
 
 ## Prüfen
@@ -35,10 +40,13 @@ Der Integrationsstand auf `develop` ist unter [accura-preview.kiumu.app](https:/
 ```bash
 npm run docs:check
 npm test
+npm run test:postgres
 npm run lint
 npm run licenses:check
 npm run build
 ```
+
+`npm run test:postgres` braucht eine laufende PostgreSQL-Instanz. `npm run smoke` und `npm run test:visual` sind optional.
 
 Die Dokumentationsprüfung ist ein lokales Hilfsmittel und kein CI- oder Release-Gate. Lizenzhinweise zur eingebetteten Schrift stehen unter [docs/fonts](docs/fonts/README.md).
 
